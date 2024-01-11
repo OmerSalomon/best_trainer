@@ -1,3 +1,5 @@
+package properties;
+
 public class Hours {
     private final int startHour;
     private final int endHour;
