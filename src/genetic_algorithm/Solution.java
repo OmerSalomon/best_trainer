@@ -4,6 +4,7 @@ import properties.Customer;
 import properties.Trainer;
 import properties.Workout;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -33,7 +34,8 @@ public class Solution {
         int totalDiscrepancies = 0;
 
         for (Trainer trainer : trainers){
-            totalDiscrepancies += getTrainerDiscrepancies(trainer);
+            int trainerDiscrepancies = getTrainerDiscrepancies(trainer);
+            totalDiscrepancies += trainerDiscrepancies;
         }
 
         return totalDiscrepancies;
@@ -76,5 +78,16 @@ public class Solution {
         }
 
         return smallestDiscrepancies;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+
+        for (Trainer trainer : trainers){
+            res.append("\n" + trainer.toString());
+        }
+
+        return res.toString();
     }
 }

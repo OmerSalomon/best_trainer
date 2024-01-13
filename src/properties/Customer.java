@@ -11,5 +11,10 @@ public class Customer extends Person {
     public Workout getDemandWorkout() {
         return demandWorkout;
     }
+
+    @Override
+    public String toString() {
+        return "[" + getName() + ": " + demandWorkout.toString() + "]";
+    }
 }
 

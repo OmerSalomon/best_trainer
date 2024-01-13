@@ -14,6 +14,12 @@ public class Workout {
     }
 
     public int getMinutes() {
+
         return minutes;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + type + ": " + minutes + "]";
     }
 }

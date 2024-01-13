@@ -27,4 +27,9 @@ public class Trainer extends Person {
     public ArrayList<Customer> getCustomers() {
         return customers;
     }
+
+    @Override
+    public String toString() {
+        return "[" + getName() + ": " + workouts.toString() + customers.toString() + "]";
+    }
 }
