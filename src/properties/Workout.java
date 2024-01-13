@@ -20,6 +20,6 @@ public class Workout {
 
     @Override
     public String toString() {
-        return "[" + type + ": " + minutes + "]";
+        return  getType();
     }
 }

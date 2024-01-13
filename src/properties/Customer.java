@@ -14,7 +14,7 @@ public class Customer extends Person {
 
     @Override
     public String toString() {
-        return "[" + getName() + ": " + demandWorkout.toString() + "]";
+        return getName();
     }
 }
 

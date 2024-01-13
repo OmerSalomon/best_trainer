@@ -23,7 +23,7 @@ public class Generation {
         return new Generation(solutions);
     }
 
-    public void printTotalSolutions(){
+    public void printTotalSolutionsDiscrepancies(){
         for (Solution solution : solutions){
             int fitness = solution.fitness();
             System.out.println(fitness);
@@ -40,4 +40,23 @@ public class Generation {
         return generationDiscrepancies;
     }
 
+    public void printAllSolutionDiscrepancies(){
+        for (Solution solution : solutions)
+            System.out.println(solution.fitness());
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+
+        for (int i = 0; i < solutions.size(); i++) {
+            res.append("Solution " + i);
+            res.append("\n");
+            res.append(solutions.get(i).toString());
+            res.append("\n");
+            res.append("\n");
+        }
+
+        return res.toString();
+    }
 }

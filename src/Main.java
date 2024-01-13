@@ -1,4 +1,3 @@
-import genetic_algorithm.Algorithem;
 import genetic_algorithm.Generation;
 import genetic_algorithm.Solution;
 import properties.Customer;
@@ -12,7 +11,8 @@ import java.util.ArrayList;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        Generation generation = Generation.createRandomGeneration(createTrainerList(), createCustomerList(), 2);
+        Generation generation = Generation.createRandomGeneration(createTrainerList(), createCustomerList(), 4);
+        generation.printAllSolutionDiscrepancies();
     }
 
 
@@ -58,6 +58,7 @@ public class Main {
         customers.add(customer_8);
         customers.add(customer_9);
         customers.add(customer_10);
+
 
         return customers;
     }
