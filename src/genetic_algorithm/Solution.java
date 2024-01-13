@@ -6,12 +6,12 @@ import properties.Trainer;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Solution {
+public class Solution implements Comparable<Solution> {
     private static final int GENDER_EQUALITY_POINTS = 5;
     private static final int AGE_DIFFERENCE_FACTOR = 1;
     private static final int WORKOUT_TIME_DELTA_FACTOR = 3;
 
-    private ArrayList<Pair> pairs;
+    private final ArrayList<Pair> pairs;
 
     private Solution(ArrayList<Trainer> trainers){
         pairs = new ArrayList<>();
@@ -19,6 +19,37 @@ public class Solution {
         for (Trainer trainer : trainers)
             pairs.add(new Pair(trainer));
     }
+
+    private Solution(){
+        pairs = new ArrayList<>();
+    }
+
+    public Solution createChild(Solution parent){
+        Solution child = new Solution();
+        boolean flag = true;
+
+        ArrayList<Pair> parentPair = parent.getPairs();
+
+        for (int i = 0; i < pairs.size(); i++) {
+            if (flag){
+                child.addPair(parentPair.get(i));
+            }
+            else {
+                child.addPair(this.pairs.get(i));
+            }
+        }
+
+        return child;
+    }
+
+    public void addPair(Pair pair){
+        pairs.add(pair);
+    }
+
+    public ArrayList<Pair> getPairs(){
+        return pairs;
+    }
+
 
     private void addToPair(Customer customer, int index){
         pairs.get(index).addCustomer(customer);
@@ -46,6 +77,7 @@ public class Solution {
     }
 
 
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
@@ -56,5 +88,10 @@ public class Solution {
         }
 
         return res.toString();
+    }
+
+    @Override
+    public int compareTo(Solution o) {
+        return fitness() - o.fitness();
     }
 }
