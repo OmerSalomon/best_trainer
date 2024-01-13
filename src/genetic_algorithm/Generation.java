@@ -23,4 +23,21 @@ public class Generation {
         return new Generation(solutions);
     }
 
+    public void printTotalSolutions(){
+        for (Solution solution : solutions){
+            int fitness = solution.fitness();
+            System.out.println(fitness);
+        }
+    }
+
+    public int fitness(){
+        int generationDiscrepancies = 0;
+
+        for (Solution solution : solutions){
+            generationDiscrepancies += solution.fitness();
+        }
+
+        return generationDiscrepancies;
+    }
+
 }

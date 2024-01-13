@@ -14,6 +14,8 @@ public class Main {
         ArrayList<Customer> customers = createCustomerList();
         ArrayList<Trainer> trainers = createTrainerList();
         Generation generation = Generation.createRandomGeneration(trainers, customers, 10);
+        int fitnessValue = generation.fitness();
+        generation.printTotalSolutions();
     }
 
 
