@@ -11,6 +11,7 @@ public class Generation {
     private ArrayList<Trainer> trainers;
     private ArrayList<Customer> customers;
     private final int generationSize;
+    private int fitness = -1;
 
     public Generation(ArrayList<Trainer> trainers, ArrayList<Customer> customers, int generationSize) {
         this.trainers = trainers;
@@ -69,9 +70,12 @@ public class Generation {
         createMutationsForWorstChildren(childrenSolutions, childrenSolutions.size()/3 ,1);
 
         ArrayList<Solution> randomSolutions = createRandomSolutions(generationSize / 2);
-        childrenSolutions.addAll(randomSolutions);
 
-        Generation nextGeneration = new Generation(trainers, customers, generationSize, childrenSolutions);
+        ArrayList<Solution> nextGenSolution = new ArrayList<>();
+        nextGenSolution.addAll(randomSolutions);
+        nextGenSolution.addAll(childrenSolutions);
+
+        Generation nextGeneration = new Generation(trainers, customers, generationSize, nextGenSolution);
         return nextGeneration;
     }
 
@@ -99,13 +103,16 @@ public class Generation {
     }
 
     public int fitness(){
-        int generationDiscrepancies = 0;
+        if (fitness == -1){
+            int generationDiscrepancies = 0;
 
-        for (Solution solution : solutions){
-            generationDiscrepancies += solution.fitness();
+            for (Solution solution : solutions){
+                generationDiscrepancies += solution.fitness();
+            }
+
+            return generationDiscrepancies;
         }
-
-        return generationDiscrepancies;
+        return fitness;
     }
 
     public void printAllSolutionDiscrepancies(){

@@ -5,17 +5,15 @@ import properties.Trainer;
 import properties.Workout;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
-public class Pair implements Iterable<Customer>{
+public class Pair{
     private static final int GENDER_FACTOR = 10;
     private static final int AGE_DIFF_FACTOR = 2;
     private static final int WORKOUT_MATCH_FACTOR = 30;
     private static final int WORKOUT_TIME_DIFF_FACTOR = 20;
     private final Trainer trainer;
     private final ArrayList<Customer> customers;
+    private int fitNess = -1;
 
     public Pair(Trainer trainer) {
         this.trainer = trainer;
@@ -34,20 +32,7 @@ public class Pair implements Iterable<Customer>{
         return customers.get(index);
     }
 
-    @Override
-    public Iterator<Customer> iterator() {
-        return new CustomerIterator(customers);
-    }
 
-    @Override
-    public void forEach(Consumer<? super Customer> action) {
-        Iterable.super.forEach(action);
-    }
-
-    @Override
-    public Spliterator<Customer> spliterator() {
-        return Iterable.super.spliterator();
-    }
 
     @Override
     public String toString() {
@@ -56,7 +41,7 @@ public class Pair implements Iterable<Customer>{
         res.append(trainer.toString());
         res.append("\n");
         res.append(" customers: ");
-        for (Customer customer : this){
+        for (Customer customer : customers){
             res.append(customer.toString());
             res.append(", ");
         }
@@ -64,14 +49,18 @@ public class Pair implements Iterable<Customer>{
         return res.toString();
     }
 
-    public int getDiscrepancy() {
-        int pairDiscrepancy = 0;
+    public int fitness() {
+        if (fitNess == -1){
+            int pairDiscrepancy = 0;
 
-        for (Customer customer : customers){
-            pairDiscrepancy += getCustomerDiscrepancy(customer);
+            for (Customer customer : customers){
+                pairDiscrepancy += getCustomerDiscrepancy(customer);
+            }
+
+            fitNess = pairDiscrepancy;
+            return pairDiscrepancy;
         }
-
-        return pairDiscrepancy;
+        return fitNess;
     }
 
     private int getCustomerDiscrepancy(Customer customer) {
@@ -102,35 +91,13 @@ public class Pair implements Iterable<Customer>{
         return null;
     }
 
-    public Customer popCustomer() {
-        Customer res = customers.get(customers.size() - 1);
-        customers.remove(customers.size() - 1);
-        return res;
-    }
-
     public boolean hasCustomers() {
         return !customers.isEmpty();
     }
 
-    private static class CustomerIterator implements Iterator<Customer> {
-
-        private final ArrayList<Customer> customers;
-        private int index = 0;
-
-        public CustomerIterator(ArrayList<Customer> customers){
-            this.customers = customers;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return index < customers.size();
-        }
-
-        @Override
-        public Customer next() {
-            Customer res = customers.get(index);
-            index++;
-            return res;
-        }
+    public Customer popCustomer() {
+        Customer res = customers.get(0);
+        customers.remove(0);
+        return res;
     }
 }

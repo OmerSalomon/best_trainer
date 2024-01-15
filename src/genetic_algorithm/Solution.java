@@ -61,7 +61,7 @@ public class Solution implements Comparable<Solution> {
             int fitnessDiscrepancy = 0;
 
             for (Pair pair : pairs)
-                fitnessDiscrepancy += pair.getDiscrepancy();
+                fitnessDiscrepancy += pair.fitness();
 
             return fitnessDiscrepancy;
         }
