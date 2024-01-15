@@ -7,13 +7,13 @@ import properties.Workout;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Spliterator;
-import java.util.concurrent.RecursiveTask;
 import java.util.function.Consumer;
 
 public class Pair implements Iterable<Customer>{
     private static final int GENDER_FACTOR = 10;
     private static final int AGE_DIFF_FACTOR = 2;
     private static final int WORKOUT_MATCH_FACTOR = 30;
+    private static final int WORKOUT_TIME_DIFF_FACTOR = 20;
     private final Trainer trainer;
     private final ArrayList<Customer> customers;
 
@@ -83,18 +83,33 @@ public class Pair implements Iterable<Customer>{
         int ageDiff = Math.abs(customer.getAge() - trainer.getAge()) ;
         customerDiscrepancy += ageDiff * AGE_DIFF_FACTOR;
 
-        if (!trainerOfferTheRightWorkout(customer.getDemandWorkout()))
+        Workout workout = getTrainerMatchWorkout(customer.getDemandWorkout());
+        if (workout == null)
             customerDiscrepancy += WORKOUT_MATCH_FACTOR;
+        else {
+            int timeDiff = Math.abs(workout.getMinutes() - customer.getDemandWorkout().getMinutes());
+            customerDiscrepancy += timeDiff * WORKOUT_TIME_DIFF_FACTOR;
+        }
 
         return customerDiscrepancy;
     }
 
-    private boolean trainerOfferTheRightWorkout(Workout demandWorkout) {
+    private Workout getTrainerMatchWorkout(Workout demandWorkout) {
         for (Workout workout : trainer.getWorkouts()){
             if (workout.getType().equals(demandWorkout.getType()))
-                return true;
+                return workout;
         }
-        return false;
+        return null;
+    }
+
+    public Customer popCustomer() {
+        Customer res = customers.get(customers.size() - 1);
+        customers.remove(customers.size() - 1);
+        return res;
+    }
+
+    public boolean hasCustomers() {
+        return !customers.isEmpty();
     }
 
     private static class CustomerIterator implements Iterator<Customer> {

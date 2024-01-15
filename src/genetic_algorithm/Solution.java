@@ -10,6 +10,7 @@ public class Solution implements Comparable<Solution> {
     private static final int GENDER_EQUALITY_POINTS = 5;
     private static final int AGE_DIFFERENCE_FACTOR = 1;
     private static final int WORKOUT_TIME_DELTA_FACTOR = 3;
+    private int fitness = - 1;
 
     private final ArrayList<Pair> pairs;
 
@@ -56,12 +57,15 @@ public class Solution implements Comparable<Solution> {
     }
 
     public int fitness(){
-        int fitnessDiscrepancy = 0;
+        if (fitness == -1){
+            int fitnessDiscrepancy = 0;
 
-        for (Pair pair : pairs)
-            fitnessDiscrepancy += pair.getDiscrepancy();
+            for (Pair pair : pairs)
+                fitnessDiscrepancy += pair.getDiscrepancy();
 
-        return fitnessDiscrepancy;
+            return fitnessDiscrepancy;
+        }
+        return fitness;
     }
 
     public static Solution createRandomSolution(ArrayList<Trainer> trainers, ArrayList<Customer> customers){
@@ -93,5 +97,19 @@ public class Solution implements Comparable<Solution> {
     @Override
     public int compareTo(Solution o) {
         return fitness() - o.fitness();
+    }
+
+    public void makeMutation(int mutationAmount) {
+        Random random = new Random();
+        for (int i = 0; i < mutationAmount; i++) {
+            int index = random.nextInt(pairs.size());
+            Pair firstPair = pairs.get(index);
+            index = random.nextInt(pairs.size());
+            Pair secondPair = pairs.get(index);
+            if (firstPair.hasCustomers()){
+                Customer customer = firstPair.popCustomer();
+                secondPair.addCustomer(customer);
+            }
+        }
     }
 }

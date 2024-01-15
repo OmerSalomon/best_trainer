@@ -1,4 +1,6 @@
 import data.Repository;
+import genetic_algorithm.Algorithem;
+import genetic_algorithm.Generation;
 import genetic_algorithm.Solution;
 import properties.Customer;
 import properties.Trainer;
@@ -11,15 +13,11 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Trainer> trainers = Repository.getInstance().getTrainers();
         ArrayList<Customer> customers = Repository.getInstance().getCustomer();
-        Solution parent_1 = Solution.createRandomSolution(trainers, customers);
-        Solution parent_2 = Solution.createRandomSolution(trainers, customers);
-        Solution child = parent_1.createChild(parent_2);
-        System.out.println("parent_1");
-        System.out.println(parent_1);
-        System.out.println("parent_2");
-        System.out.println(parent_2);
-        System.out.println("child");
-        System.out.println(child);
+
+        Algorithem algorithem = new Algorithem(trainers, customers);
+        Solution bestSolution = algorithem.findBestSolution(100,1000);
+
+        System.out.println(bestSolution);
     }
 
 

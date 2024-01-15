@@ -3,45 +3,78 @@ package genetic_algorithm;
 import properties.Customer;
 import properties.Trainer;
 
-import javax.xml.transform.SourceLocator;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Generation {
-    private ArrayList<Solution> solutions;
+    private final ArrayList<Solution> solutions;
+    private ArrayList<Trainer> trainers;
+    private ArrayList<Customer> customers;
+    private final int generationSize;
 
-    private Generation(ArrayList<Solution> solutions){
+    public Generation(ArrayList<Trainer> trainers, ArrayList<Customer> customers, int generationSize) {
+        this.trainers = trainers;
+        this.customers = customers;
+        this.generationSize = generationSize;
+        this.solutions = createRandomSolutions(generationSize);
+    }
+
+    private Generation(ArrayList<Trainer> trainers, ArrayList<Customer> customers, int generationSize, ArrayList<Solution> solutions) {
+        this.trainers = trainers;
+        this.customers = customers;
+        this.generationSize = generationSize;
         this.solutions = solutions;
     }
 
-    public static Generation createRandomGeneration(ArrayList<Trainer> trainers, ArrayList<Customer> customers, int generationSize){
+
+
+
+    private ArrayList<Solution> createRandomSolutions(int amount){
         ArrayList<Solution> solutions = new ArrayList<>();
 
-        for (int i = 0; i < generationSize; i++){
+        for (int i = 0; i < amount; i++){
             Solution solution = Solution.createRandomSolution(trainers, customers);
             solutions.add(solution);
         }
 
-        return new Generation(solutions);
+        return solutions;
     }
 
-    public static Generation createNextGeneration(ArrayList<Solution> topHalfSolutions){
-        ArrayList<Solution> nextGenSolutions = new ArrayList<>();
+    private void createMutationsForWorstChildren(ArrayList<Solution> solutions, int amount , int mutationPerSolution){
+        Collections.sort(solutions);
+        int index = solutions.size() - 1;
+        for (int i = 0; i < amount; i++) {
+            solutions.get(index).makeMutation(mutationPerSolution);
+            index--;
+        }
+    }
+
+    public Generation createNextGeneration(){
+        ArrayList<Solution> topHalfSolutions = getTopHalfSolutions();
+        ArrayList<Solution> childrenSolutions = new ArrayList<>();
 
         int i = 0;
         int j = topHalfSolutions.size() - 1;
 
-
         while (i < topHalfSolutions.size()){
             Solution parent_1 = topHalfSolutions.get(i);
             Solution parent_2 = topHalfSolutions.get(j);
-            nextGenSolutions.add(parent_1.createChild(parent_2));
+            childrenSolutions.add(parent_1.createChild(parent_2));
             i++;
             j--;
         }
 
-        return new Generation(nextGenSolutions);
+
+
+        createMutationsForWorstChildren(childrenSolutions, childrenSolutions.size()/3 ,1);
+
+        ArrayList<Solution> randomSolutions = createRandomSolutions(generationSize / 2);
+        childrenSolutions.addAll(randomSolutions);
+
+        Generation nextGeneration = new Generation(trainers, customers, generationSize, childrenSolutions);
+        return nextGeneration;
     }
+
 
 
 
@@ -57,9 +90,6 @@ public class Generation {
         return topHalfSolutions;
     }
 
-    public static void createNextGeneration(){
-
-    }
 
     public void printTotalSolutionsDiscrepancies(){
         for (Solution solution : solutions){
@@ -98,5 +128,19 @@ public class Generation {
         }
 
         return res.toString();
+    }
+
+    public Solution findBestSolution() {
+        Solution bestSolution = null;
+        int lowestDiscrepancy = Integer.MAX_VALUE;
+
+        for (Solution solution : solutions){
+            if (solution.fitness() < lowestDiscrepancy){
+                lowestDiscrepancy = solution.fitness();
+                bestSolution = solution;
+            }
+        }
+
+        return bestSolution;
     }
 }

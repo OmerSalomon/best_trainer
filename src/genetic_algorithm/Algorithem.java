@@ -4,18 +4,24 @@ import properties.Customer;
 import properties.Trainer;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Algorithem {
+    private final ArrayList<Trainer> trainers;
 
-    private final int generationSize;
+    private final ArrayList<Customer> customers;
 
-    public Algorithem(int generationSize){
-        this.generationSize = generationSize;
+    public Algorithem(ArrayList<Trainer> trainers, ArrayList<Customer> customers) {
+        this.trainers = trainers;
+        this.customers = customers;
     }
 
-    private void createNextGeneration(){
+    public Solution findBestSolution(int generationSize ,int generationsAmount){
+        Generation generation = new Generation(trainers, customers, generationSize);
+        for (int i = 0; i < generationsAmount; i++) {
+            generation = generation.createNextGeneration();
+        }
 
+        return generation.findBestSolution();
     }
 
 
