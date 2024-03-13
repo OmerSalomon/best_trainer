@@ -1,14 +1,19 @@
 package properties;
 
+import genetic_algorithm.Pair;
+
 import java.time.DayOfWeek;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
+import java.util.PropertyResourceBundle;
 
 public class Schedule {
-    private EnumMap<DayOfWeek, List<Trainer>> workWeek;
+    private WorkDay[] workWeek;
+    public Schedule(WorkDay[] workWeek) {
+    }
 
-    public Schedule() {
-        // Correctly initialize the EnumMap with DayOfWeek as the key type
-        workWeek = new EnumMap<>(DayOfWeek.class);
+    public Schedule(Schedule a, Schedule b){
+
     }
 }

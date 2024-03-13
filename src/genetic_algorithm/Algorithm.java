@@ -4,9 +4,10 @@ import properties.Customer;
 import properties.Trainer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Algorithm {
-    private final ArrayList<Trainer> trainers;
+    private final List<Trainer> trainers;
 
     private final ArrayList<Customer> customers;
 
@@ -16,13 +17,6 @@ public class Algorithm {
     }
 
     public Solution findBestSolution(int generationSize ,int generationsAmount){
-        Generation generation = new Generation(trainers, customers, generationSize);
-        for (int i = 0; i < generationsAmount; i++) {
-            generation = generation.createNextGeneration();
-        }
-
-        return generation.findBestSolution();
+        return null;
     }
-
-
 }

@@ -11,9 +11,15 @@ public class Pair{
     private Trainer trainer;
     private Schedule schedule;
 
-    public Pair(Trainer trainer, Schedule schedule) {
-        this.trainer = trainer;
-        this.schedule = schedule;
+    public Pair(Pair a, Pair b){
+        createCrossedPair();
+    }
+
+    public Pair(Trainer trainer, Schedule schedule){
+
+    }
+
+    private void createCrossedPair() {
     }
 
     public Trainer getTrainer() {
