@@ -1,15 +1,19 @@
 package properties;
 
+import java.util.Date;
+
 public class Person {
     private String id;
-    private String name;
-    private int age;
+    private String firstName;
+    private String lastName;
+    private Date birthDate;
     private Gender gender;
 
-    public Person(String id, String name, int age, Gender gender) {
+    public Person(String id, String firstName, String lastName, Date birthDate, Gender gender) {
         this.id = id;
-        this.name = name;
-        this.age = age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
         this.gender = gender;
     }
 
@@ -17,12 +21,16 @@ public class Person {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public int getAge() {
-        return age;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
     }
 
     public Gender getGender() {

@@ -5,12 +5,12 @@ import properties.Trainer;
 
 import java.util.ArrayList;
 
-public class Algorithem {
+public class Algorithm {
     private final ArrayList<Trainer> trainers;
 
     private final ArrayList<Customer> customers;
 
-    public Algorithem(ArrayList<Trainer> trainers, ArrayList<Customer> customers) {
+    public Algorithm(ArrayList<Trainer> trainers, ArrayList<Customer> customers) {
         this.trainers = trainers;
         this.customers = customers;
     }

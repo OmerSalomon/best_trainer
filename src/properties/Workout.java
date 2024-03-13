@@ -1,25 +1,21 @@
 package properties;
 
+import java.util.List;
+
 public class Workout {
-    private String type;
-    private int minutes;
+    private String workoutType;
+    private String workoutLength;
 
-    public Workout(String type, int minutes) {
-        this.type = type;
-        this.minutes = minutes;
+    public Workout(String workoutType, String workoutLength) {
+        this.workoutType = workoutType;
+        this.workoutLength = workoutLength;
     }
 
-    public String getType() {
-        return type;
+    public String getWorkoutType() {
+        return workoutType;
     }
 
-    public int getMinutes() {
-
-        return minutes;
-    }
-
-    @Override
-    public String toString() {
-        return  getType();
+    public String getWorkoutLength() {
+        return workoutLength;
     }
 }

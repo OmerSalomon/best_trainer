@@ -1,6 +1,5 @@
 import data.Repository;
-import genetic_algorithm.Algorithem;
-import genetic_algorithm.Generation;
+import genetic_algorithm.Algorithm;
 import genetic_algorithm.Solution;
 import properties.Customer;
 import properties.Trainer;
@@ -14,7 +13,7 @@ public class Main {
         ArrayList<Trainer> trainers = Repository.getInstance().getTrainers();
         ArrayList<Customer> customers = Repository.getInstance().getCustomer();
 
-        Algorithem algorithem = new Algorithem(trainers, customers);
+        Algorithm algorithem = new Algorithm(trainers, customers);
         Solution bestSolution = algorithem.findBestSolution(100,1500);
 
         System.out.println(bestSolution);

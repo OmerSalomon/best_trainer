@@ -56,12 +56,12 @@ public class Solution implements Comparable<Solution> {
         pairs.get(index).addCustomer(customer);
     }
 
-    public int fitness(){
+    public int discrepancy(){
         if (fitness == -1){
             int fitnessDiscrepancy = 0;
 
             for (Pair pair : pairs)
-                fitnessDiscrepancy += pair.fitness();
+                fitnessDiscrepancy += pair.discrepancy();
 
             return fitnessDiscrepancy;
         }
@@ -96,7 +96,7 @@ public class Solution implements Comparable<Solution> {
 
     @Override
     public int compareTo(Solution o) {
-        return fitness() - o.fitness();
+        return discrepancy() - o.discrepancy();
     }
 
     public void makeMutation(int mutationAmount) {

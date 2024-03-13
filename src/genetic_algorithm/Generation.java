@@ -17,7 +17,7 @@ public class Generation {
         this.trainers = trainers;
         this.customers = customers;
         this.generationSize = generationSize;
-        this.solutions = createRandomSolutions(generationSize);
+        this.solutions = createRandomGeneration(generationSize);
     }
 
     private Generation(ArrayList<Trainer> trainers, ArrayList<Customer> customers, int generationSize, ArrayList<Solution> solutions) {
@@ -30,7 +30,7 @@ public class Generation {
 
 
 
-    private ArrayList<Solution> createRandomSolutions(int amount){
+    private ArrayList<Solution> createRandomGeneration(int amount){
         ArrayList<Solution> solutions = new ArrayList<>();
 
         for (int i = 0; i < amount; i++){
@@ -69,7 +69,7 @@ public class Generation {
 
         createMutationsForWorstChildren(childrenSolutions, childrenSolutions.size()/3 ,1);
 
-        ArrayList<Solution> randomSolutions = createRandomSolutions(generationSize / 2);
+        ArrayList<Solution> randomSolutions = createRandomGeneration(generationSize / 2);
 
         ArrayList<Solution> nextGenSolution = new ArrayList<>();
         nextGenSolution.addAll(randomSolutions);
@@ -97,17 +97,17 @@ public class Generation {
 
     public void printTotalSolutionsDiscrepancies(){
         for (Solution solution : solutions){
-            int fitness = solution.fitness();
+            int fitness = solution.discrepancy();
             System.out.println(fitness);
         }
     }
 
-    public int fitness(){
+    public int discrepancy(){
         if (fitness == -1){
             int generationDiscrepancies = 0;
 
             for (Solution solution : solutions){
-                generationDiscrepancies += solution.fitness();
+                generationDiscrepancies += solution.discrepancy();
             }
 
             return generationDiscrepancies;
@@ -117,7 +117,7 @@ public class Generation {
 
     public void printAllSolutionDiscrepancies(){
         for (Solution solution : solutions)
-            System.out.println(solution.fitness());
+            System.out.println(solution.discrepancy());
     }
 
 
@@ -142,8 +142,8 @@ public class Generation {
         int lowestDiscrepancy = Integer.MAX_VALUE;
 
         for (Solution solution : solutions){
-            if (solution.fitness() < lowestDiscrepancy){
-                lowestDiscrepancy = solution.fitness();
+            if (solution.discrepancy() < lowestDiscrepancy){
+                lowestDiscrepancy = solution.discrepancy();
                 bestSolution = solution;
             }
         }
