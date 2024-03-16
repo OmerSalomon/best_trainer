@@ -1,9 +1,7 @@
 package data;
 
 import properties.Customer;
-import properties.Gender;
 import properties.Trainer;
-import properties.Workout;
 
 import java.util.ArrayList;
 

@@ -2,12 +2,12 @@ package properties;
 
 import java.util.Date;
 
-public class Person {
-    private String id;
-    private String firstName;
-    private String lastName;
-    private Date birthDate;
-    private Gender gender;
+public abstract class Person {
+    private final String id;
+    private final String firstName;
+    private final String lastName;
+    private final Date birthDate;
+    private final Gender gender;
 
     public Person(String id, String firstName, String lastName, Date birthDate, Gender gender) {
         this.id = id;

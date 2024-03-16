@@ -1,15 +1,20 @@
 package properties;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorkDay {
 
-    Map<Customer, Workout> customerWorkoutMap;
+    private int workHours;
+    List<Pair> customerWorkout;
     public WorkDay() {
-        customerWorkoutMap = new HashMap<>();
+        customerWorkout = new ArrayList<>();
     }
-    int getTotalWorkTime(){
-        return 0;
+
+    public Pair PopRandomPair(){
+        return null;
+    }
+
+    public void addPair(){
     }
 }

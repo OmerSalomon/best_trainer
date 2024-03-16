@@ -14,7 +14,6 @@ public class Main {
         ArrayList<Customer> customers = Repository.getInstance().getCustomer();
 
         Algorithm algorithem = new Algorithm(trainers, customers);
-        Solution bestSolution = algorithem.findBestSolution(100,1500);
 
         System.out.println(bestSolution);
     }

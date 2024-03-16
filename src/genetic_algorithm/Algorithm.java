@@ -16,7 +16,7 @@ public class Algorithm {
         this.customers = customers;
     }
 
-    public Solution findBestSolution(int generationSize ,int generationsAmount){
+    public Solution FindBestSolution(int generationSize , int generationsAmount){
         return null;
     }
 }

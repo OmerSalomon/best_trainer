@@ -1,25 +1,24 @@
 package properties;
 
-import properties.Customer;
-
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Trainer extends Person {
-    private final ArrayList<Workout> workouts;
-    private int[] weeklyWorkHours;
+    private final List<String> workouts;
+    private int[] dailyWorkHours;
 
-    public Trainer(String id, String firstName, String lastName, Date birthDate, Gender gender, ArrayList<Workout> workouts, int[] weeklyWorkHours) {
+    public Trainer(String id, String firstName, String lastName, Date birthDate, Gender gender, ArrayList<String> workouts, int[] dailyWorkHours) {
         super(id, firstName, lastName, birthDate, gender);
         this.workouts = workouts;
-        this.weeklyWorkHours = weeklyWorkHours;
+        this.dailyWorkHours = dailyWorkHours;
     }
 
-    public ArrayList<Workout> getWorkouts() {
+    public List<String> getWorkouts() {
         return workouts;
     }
 
-    public int[] getWeeklyWorkHours() {
-        return weeklyWorkHours;
+    public int[] getDailyWorkHours() {
+        return dailyWorkHours;
     }
 }
