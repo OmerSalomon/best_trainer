@@ -3,16 +3,14 @@ package properties;
 import java.util.Date;
 
 public class Customer extends Person {
-    private final String demandWorkout;
-    private final boolean[] freeDays;
+    private final int demandWorkout;
 
-    public Customer(String id, String firstName, String lastName, Date birthDate, Gender gender, String demandWorkout, boolean[] freeDays) {
-        super(id, firstName, lastName, birthDate, gender);
+    public Customer(String id, String firstName, String lastName, Date birthDate, Gender gender, boolean[] accessibleTime, int demandWorkout) {
+        super(id, firstName, lastName, birthDate, gender, accessibleTime);
         this.demandWorkout = demandWorkout;
-        this.freeDays = freeDays;
     }
 
-    public String getDemandWorkout() {
+    public int getDemandWorkout() {
         return demandWorkout;
     }
 }
